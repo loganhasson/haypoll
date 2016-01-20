@@ -1,38 +1,33 @@
 <h2>Show poll</h2>
 <input type="hidden" id="poll-id" value="<%= @poll.id %>">
 
-<ul>
+<div class="col-xs-8">
+  <ul>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @poll.title %>
-  </li>
+    <li>
+      <strong>Title:</strong>
+      <%= @poll.title %>
+    </li>
 
-  <li>
-    <strong>Closed:</strong>
-    <%= @poll.closed %>
-  </li>
-
-  <li>
-    <strong>Entries:</strong>
-    <div class="col-xs-8">
+    <li>
+      <strong>Entries:</strong>
       <ul>
         <%= for entry <- @poll.entries do %>
           <li class="entry" data-entry-id="<%= entry.id %>">
             <span class="votes"><%= entry.votes %></span> votes:
             <span class="title"><%= entry.title %></span>
-            <%= link "Vote", to: "#", class: "btn btn-info vote" %>
+            <%= link "Vote", to: "#", class: "btn btn-info vote#{hidden_buttons(@poll)}" %>
           </li>
         <% end %>
       </ul>
-    </div>
-    <div class="col-xs-4">
-      <div id="my-chart"></div>
-    </div>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  </li>
+    </li>
+  </ul>
+</div>
 
-</ul>
+<div class="col-xs-4">
+  <div id="my-chart"></div>
+</div>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
 <%= link "Edit", to: poll_path(@conn, :edit, @poll) %>
 <%= link "Back", to: poll_path(@conn, :index) %>
